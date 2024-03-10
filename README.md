@@ -1,4 +1,4 @@
-# tomtit
+![Logo](./static/img/logo/tomtit_banner.png)
 
 Note taking web app based on flask, bootstrap and HTMX.
 
@@ -7,9 +7,6 @@ Note taking web app based on flask, bootstrap and HTMX.
 - [Project Description](#project-description)
 - [Features](#features)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Project Description
 
