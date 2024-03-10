@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, make_response, request
-from domain.card import Card
+from domain.Card import Card
 import uuid, time
 
 blueprint = Blueprint("post", __name__, url_prefix="/post")
