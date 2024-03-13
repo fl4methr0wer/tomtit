@@ -6,10 +6,16 @@
 <div class="container mt-4" style="width: 75%" id="main_container">
 
     <div class="container mt-4">
-        {% include 'htmx/post/form.html' %}
+        {% include 'htmx/card/form.html' %}
     </div>
 
     <div class="container mt-4">
+        <button class="btn btn-secondary"
+                hx-get="/card"
+                hx-target="#cardList"
+                hx-swap="outerHTML"
+        >Get cards</button>
+
     <!-- Card list container -->
         <div id="cardList" class="row">
         <!-- Cards will be dynamically inserted here -->

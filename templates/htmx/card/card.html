@@ -1,25 +1,25 @@
-<div class="card mt-2" id="{{ id }}"
-     hx-target="this"
-     hx-swap="outerHTML"
+<div class="card mt-2" id="{{ card.id }}"
 >
         <div class="card-body">
             <div class="d-flex align-items-center">
-                <h5 class="card-title">{{title}}</h5>
+                <h5 class="card-title">{{card.title}}</h5>
             </div>
             <div class="d-flex align-items-left">
-                 <pre><p class="card-text">{{content}}</p></pre>
+                 <pre><p class="card-text">{{card.content}}</p></pre>
             </div>
             <div class="d-flex align-items-center">
                 <button type="button"
                         class="btn btn-danger me-2"
                         hx-trigger = "click"
-                        hx-delete="/post/{{id}}"
+                        hx-delete="/card/{{card.id}}"
+                        hx-target="#{{ card.id }}"
+                        hx-swap="outerHTML"
                         hx-confirm="Do you want to delete?"
-                        hx-indicator="#spinner{{ id }}"
+                        hx-indicator="#spinner{{card.id}}"
                 >
                     <i class="bi bi-trash">Delete</i>
                 </button>
-                <div id="spinner{{ id }}" class="htmx-indicator spinner-border" role="status"></div>
+                <div id="spinner{{card.id }}" class="htmx-indicator spinner-border" role="status"></div>
             </div>
         </div>
 </div>
