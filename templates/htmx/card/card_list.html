@@ -1,22 +1,23 @@
-<div id="cardList" class="row">
+<div id="cardList" class="row container mt-4">
     <form class="sortable"
           hx-patch="/card/reorder"
-          hx-trigger="end">
+          hx-target="closest #cardList"
+          hx-trigger="end"
+          hx-swap="outerHTML"
+          style="background-color: chocolate"
+    >
     {% for card in cards %}
-        <div class="card mt-2" id="{{ card.id }}">
-        <input name='id' value={{ card.id }} />
         {% include "htmx/card/card.html" %}
-        </div>
     {% endfor %}
 </div>
+
 <script>
-    // in the example the sortable initialization runs on htmx.onLoad() like this: htmx.onLoad(function (content) {
-    // but load doesn't get triggered here (because htmx is already loaded in the index page), so instead we initialize it directly:
     var sortables = document.querySelectorAll(".sortable");
     for (var i = 0; i < sortables.length; i++) {
         var sortable = sortables[i];
         new Sortable(sortable, {
             animation: 150,
+            group: "shared",
             ghostClass: 'blue-background-class'
         });
     }

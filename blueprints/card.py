@@ -31,8 +31,8 @@ def create_card():
     content = request.form['content']
     newCard = Card(title, content)
     CARDS.insert(0, newCard)
-    return render_template("htmx/card/card.html",
-                           card=newCard)
+    return render_template("htmx/card/card_list.html",
+                           cards=CARDS)
 
 @blueprint.route("/<id>", methods=["DELETE"])
 def delete_card(id):
