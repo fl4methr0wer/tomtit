@@ -1,5 +1,5 @@
-<div class="card mt-2" id="{{ card.id }}">
-    <input name='id' value={{ card.id }} />
+<div class="card rounded-3 mt-2" id="{{ card.id }}">
+    <input type="hidden" name='id' value={{ card.id }} />
     <div class="card-header">{{card.title}}</div>
     <div class="card-body">
         <div class="d-flex align-items-left">
@@ -9,7 +9,7 @@
             <button type="button"
                     class="btn btn-danger me-2"
                     hx-trigger = "click"
-                    hx-delete="/card/{{card.id}}"
+                    hx-delete="/cards/{{card.id}}"
                     hx-target="#{{ card.id }}"
                     hx-swap="outerHTML"
                     hx-confirm="Do you want to delete?"

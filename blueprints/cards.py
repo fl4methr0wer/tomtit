@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, make_response, request
 from domain.Card import Card
-import uuid, time
+import time
 
-blueprint = Blueprint("post", __name__, url_prefix="/card")
+blueprint = Blueprint("cards", __name__, url_prefix="/cards")
 
 CARDS = [
     Card("title 1", "content 1"),
@@ -24,14 +24,14 @@ def reorderCardsByIdList(id_list):
     CARDS = ordered_cards
 @blueprint.route("/", methods=["GET"])
 def get_all_cards():
-    return render_template("htmx/card/card_list.html", cards = CARDS)
+    return render_template("htmx/cards/card_list.html", cards = CARDS)
 @blueprint.route('/', methods=['POST'])
 def create_card():
     title = request.form['title']
     content = request.form['content']
     newCard = Card(title, content)
     CARDS.insert(0, newCard)
-    return render_template("htmx/card/card_list.html",
+    return render_template("htmx/cards/card_list.html",
                            cards=CARDS)
 
 @blueprint.route("/<id>", methods=["DELETE"])
@@ -45,4 +45,5 @@ def reorder_cards():
     ids = request.form.getlist("id")
     print(f"IDS {ids}")
     reorderCardsByIdList(ids)
-    return render_template("htmx/card/card_list.html", cards=CARDS)
+    return render_template("htmx/cards/card_list.html",
+                           cards=CARDS)

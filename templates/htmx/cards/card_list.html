@@ -1,13 +1,13 @@
 <div id="cardList" class="row container mt-4">
     <form class="sortable"
-          hx-patch="/card/reorder"
+          hx-patch="/cards/reorder"
           hx-target="closest #cardList"
           hx-trigger="end"
           hx-swap="outerHTML"
           style="background-color: chocolate"
     >
     {% for card in cards %}
-        {% include "htmx/card/card.html" %}
+        {% include "htmx/cards/card.html" %}
     {% endfor %}
 </div>
 

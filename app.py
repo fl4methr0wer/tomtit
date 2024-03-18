@@ -1,9 +1,9 @@
 from flask import Flask, render_template
-from blueprints import card
+from blueprints import cards
 
 app = Flask(__name__)
 
-app.register_blueprint(card.blueprint)
+app.register_blueprint(cards.blueprint)
 
 @app.route('/')
 def hello_world():  # put application's code here
