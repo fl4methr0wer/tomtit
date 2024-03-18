@@ -3,6 +3,7 @@ from domain.Card import Card
 import time
 
 blueprint = Blueprint("cards", __name__, url_prefix="/cards")
+TEMPLATE_FOLDER_NAME = "htmx/cards/"
 
 CARDS = [
     Card("title 1", "content 1"),
@@ -22,16 +23,20 @@ def reorderCardsByIdList(id_list):
         if card.id not in id_list:
             ordered_cards.append(card)
     CARDS = ordered_cards
+
 @blueprint.route("/", methods=["GET"])
 def get_all_cards():
-    return render_template("htmx/cards/card_list.html", cards = CARDS)
+    return render_template(TEMPLATE_FOLDER_NAME + "card_list.html",
+                           folder_name=TEMPLATE_FOLDER_NAME,
+                           cards = CARDS)
 @blueprint.route('/', methods=['POST'])
 def create_card():
     title = request.form['title']
     content = request.form['content']
     newCard = Card(title, content)
     CARDS.insert(0, newCard)
-    return render_template("htmx/cards/card_list.html",
+    return render_template(TEMPLATE_FOLDER_NAME + "card_list.html",
+                           folder_name=TEMPLATE_FOLDER_NAME,
                            cards=CARDS)
 
 @blueprint.route("/<id>", methods=["DELETE"])
@@ -45,5 +50,6 @@ def reorder_cards():
     ids = request.form.getlist("id")
     print(f"IDS {ids}")
     reorderCardsByIdList(ids)
-    return render_template("htmx/cards/card_list.html",
+    return render_template(TEMPLATE_FOLDER_NAME + "card_list.html",
+                           folder_name=TEMPLATE_FOLDER_NAME,
                            cards=CARDS)
