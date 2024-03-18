@@ -45,7 +45,7 @@ def delete_card(id):
     deleteCardById(id)
     return make_response("", 200)
 
-@blueprint.route("/reorder", methods=["PATCH"])
+@blueprint.route("/reorder", methods=["PUT"])
 def reorder_cards():
     ids = request.form.getlist("id")
     print(f"IDS {ids}")

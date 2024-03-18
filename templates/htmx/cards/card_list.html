@@ -1,6 +1,6 @@
 <div id="cardList" class="row container mt-4">
     <form class="sortable"
-          hx-patch="/cards/reorder"
+          hx-put="/cards/reorder"
           hx-target="closest #cardList"
           hx-trigger="end"
           hx-swap="outerHTML"
