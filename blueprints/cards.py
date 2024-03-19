@@ -22,13 +22,13 @@ def reorderCardsByIdList(id_list):
             ordered_cards.append(card)
     CARDS = ordered_cards
 
-blueprint = Blueprint("cards", __name__, url_prefix="/cards")
-TEMPLATE_FOLDER_NAME = "htmx/cards/"
+blueprint = Blueprint("cards", __name__,
+                      url_prefix="/cards",
+                      template_folder="../templates/htmx/cards/")
 
 @blueprint.route("/", methods=["GET"])
 def get_all_cards():
-    return render_template(TEMPLATE_FOLDER_NAME + "card_list.html",
-                           folder_name=TEMPLATE_FOLDER_NAME,
+    return render_template("card_list.html",
                            hx_put_url=url_for("cards.reorder_cards"),
                            cards=CARDS)
 @blueprint.route('/', methods=['POST'])
@@ -38,8 +38,7 @@ def create_card():
     content = request.form['content']
     newCard = Card(title, content)
     CARDS.insert(0, newCard)
-    return render_template(TEMPLATE_FOLDER_NAME + "card_list.html",
-                           folder_name=TEMPLATE_FOLDER_NAME,
+    return render_template("card_list.html",
                            hx_put_url=url_for('cards.reorder_cards'),
                            cards=CARDS)
 
@@ -54,7 +53,6 @@ def reorder_cards():
     ids = request.form.getlist("id")
     print(f"IDS {ids}")
     reorderCardsByIdList(ids)
-    return render_template(TEMPLATE_FOLDER_NAME + "card_list.html",
-                           folder_name=TEMPLATE_FOLDER_NAME,
+    return render_template("card_list.html",
                            hx_put_url=url_for('cards.reorder_cards'),
                            cards=CARDS)
