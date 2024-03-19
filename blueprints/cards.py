@@ -1,15 +1,13 @@
-from flask import Blueprint, render_template, make_response, request
+from flask import Blueprint, render_template, make_response, request, url_for
 from domain.Card import Card
 import time
-
-blueprint = Blueprint("cards", __name__, url_prefix="/cards")
-TEMPLATE_FOLDER_NAME = "htmx/cards/"
 
 CARDS = [
     Card("title 1", "content 1"),
     Card("title 2", "content 2"),
     Card("title 3", "content 3")
 ]
+
 def deleteCardById(id):
     global CARDS  # Use the global keyword to modify the global variable
     # Filter out cards with the specified id using a list comprehension
@@ -24,19 +22,25 @@ def reorderCardsByIdList(id_list):
             ordered_cards.append(card)
     CARDS = ordered_cards
 
+blueprint = Blueprint("cards", __name__, url_prefix="/cards")
+TEMPLATE_FOLDER_NAME = "htmx/cards/"
+
 @blueprint.route("/", methods=["GET"])
 def get_all_cards():
     return render_template(TEMPLATE_FOLDER_NAME + "card_list.html",
                            folder_name=TEMPLATE_FOLDER_NAME,
-                           cards = CARDS)
+                           hx_put_url=url_for("cards.reorder_cards"),
+                           cards=CARDS)
 @blueprint.route('/', methods=['POST'])
 def create_card():
+    print(f"URL FOR HX-PUT : {url_for('cards.reorder_cards')}")
     title = request.form['title']
     content = request.form['content']
     newCard = Card(title, content)
     CARDS.insert(0, newCard)
     return render_template(TEMPLATE_FOLDER_NAME + "card_list.html",
                            folder_name=TEMPLATE_FOLDER_NAME,
+                           hx_put_url=url_for('cards.reorder_cards'),
                            cards=CARDS)
 
 @blueprint.route("/<id>", methods=["DELETE"])
@@ -52,4 +56,5 @@ def reorder_cards():
     reorderCardsByIdList(ids)
     return render_template(TEMPLATE_FOLDER_NAME + "card_list.html",
                            folder_name=TEMPLATE_FOLDER_NAME,
+                           hx_put_url=url_for('cards.reorder_cards'),
                            cards=CARDS)

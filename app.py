@@ -10,6 +10,5 @@ app.register_blueprint(cards.blueprint)
 def hello_world():  # put application's code here
     return render_template("index.html")
 
-
 if __name__ == '__main__':
     app.run()

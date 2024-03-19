@@ -1,6 +1,6 @@
 <div id="cardList" class="row container mt-4">
     <form class="sortable"
-          hx-put="/cards/reorder"
+          hx-put="{{ hx_put_url }}"
           hx-target="closest #cardList"
           hx-trigger="end"
           hx-swap="outerHTML"
