@@ -1,4 +1,7 @@
-<div id="cardList" class="row container">
+<h3 class="card-title">{{ title }}</h3>
+<hr>
+{#<div id="cardList" class="row container">#}
+<div id="cardList" class="d-flex flex-column">
     <form class="sortable"
           hx-put="{{ hx_put_url }}"
           hx-target="closest #cardList"
@@ -7,11 +10,14 @@
           style="background-color: chocolate"
     >
     {% for card in cards %}
-        <div class="container">
+        <div class="container p-0 mt-3 mb-3">
             <input type="hidden" name='id' value={{ card.id }} />
             {% include "card.html" %}
         </div>
     {% endfor %}
+    <div class="card p-3 mt-3">
+        {% include "card_creation_form.html" %}
+    </div>
 </div>
 
 <script>

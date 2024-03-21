@@ -17,25 +17,15 @@
     <div class="row">
         <div class="col">
             <h3>Column 1</h3>
-            <div class="card-columns">
-                <div id="cardListPlaceholder"
-                     class="container mt-4"
-                     hx-get="/cards"
-                     hx-swap="outerHTML"
-                     hx-trigger="load">
-                    <!-- Cards will be dynamically inserted here -->
-                </div>
-                <!-- Cards for Column 1 -->
-{#                <div class="card">Card 1 wsdfwd</div>#}
-{#                <div class="card">Card 2</div>#}
-{#                <div class="card">Card 3</div>#}
+            <div class="card-columns pt-4">
+                {% include "htmx/cards/list_creation_button.html" %}
             </div>
         </div>
         <div class="col">
             <h3>Column 2</h3>
-            <div class="card-columns">
+            <div class="card-columns pt-4">
                 <div id="cardListPlaceholder"
-                     class="container mt-4"
+                     class="container"
                      hx-get="/cards"
                      hx-swap="outerHTML"
                      hx-trigger="load">
@@ -45,10 +35,10 @@
         </div>
         <div class="col">
             <h3>Column 3</h3>
-            <div class="card-columns">
+            <div class="card-columns pt-4">
                 <div class="card-columns">
                 <div id="cardListPlaceholder"
-                     class="container mt-4"
+                     class="container"
                      hx-get="/cards"
                      hx-swap="outerHTML"
                      hx-trigger="load">

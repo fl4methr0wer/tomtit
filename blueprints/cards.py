@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, make_response, request, url_for
+from flask import Blueprint, render_template, make_response, request, url_for, abort
 from domain.Card import Card
 import time
 
@@ -25,6 +25,28 @@ def reorderCardsByIdList(id_list):
 blueprint = Blueprint("cards", __name__,
                       url_prefix="/cards",
                       template_folder="../templates/htmx/cards/")
+
+@blueprint.route("/list-creation-form", methods=["GET"])
+def get_list_creation_form():
+    if "HX-Request" not in request.headers:
+        abort(403)
+    return render_template("list_creation_form.html")
+@blueprint.route("/list", methods=["POST"])
+def create_card_list():
+    print(f"CREATE LIST POST {request.form}")
+    local_cards = [Card("local card1", ""),
+                   Card("local card2", "content2")]
+    print(f"CREATE LIST POST {request.form.items()}")
+    return render_template("new_card_list.html",
+                           cards=local_cards,
+                           title=request.form.get("list-name"),
+                           hx_put_url=url_for("cards.reorder_cards"))
+
+@blueprint.route("/card-creation-form", methods=["GET"])
+def get_card_creation_form():
+    if "HX-Request" not in request.headers:
+        abort(304)
+    return render_template("card_creation_form.html")
 
 @blueprint.route("/", methods=["GET"])
 def get_all_cards():
