@@ -42,7 +42,7 @@ def create_card():
                            hx_put_url=url_for('cards.reorder_cards'),
                            cards=CARDS)
 
-@blueprint.route("/<id>", methods=["DELETE"])
+@blueprint.route("/<string:id>", methods=["DELETE"])
 def delete_card(id):
     time.sleep(1) # just to show the spinner
     deleteCardById(id)
@@ -50,9 +50,9 @@ def delete_card(id):
 
 @blueprint.route("/reorder", methods=["PUT"])
 def reorder_cards():
-    ids = request.form.getlist("id")
-    print(f"IDS {ids}")
-    reorderCardsByIdList(ids)
+    ordered_ids = request.form.getlist("id")
+    print(f"IDS {ordered_ids}")
+    reorderCardsByIdList(ordered_ids)
     return render_template("card_list.html",
                            hx_put_url=url_for('cards.reorder_cards'),
                            cards=CARDS)
