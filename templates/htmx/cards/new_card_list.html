@@ -1,15 +1,14 @@
-<h3 class="card-title">{{ title }}</h3>
+<h3 class="card-title">{{ card_list.get_name() }}</h3>
 <hr>
-{#<div id="cardList" class="row container">#}
-<div id="cardList" class="d-flex flex-column">
+<div id={{ card_list.get_id() }} class="d-flex flex-column">
     <form class="sortable"
-          hx-put="{{ hx_put_url }}"
+          hx-put="{{ hx_put_url }}/{{card_list.get_id()}}"
           hx-target="closest #cardList"
           hx-trigger="end"
           hx-swap="outerHTML"
           style="background-color: chocolate"
     >
-    {% for card in cards %}
+    {% for card in card_list.get_cards() %}
         <div class="container p-0 mt-3 mb-3">
             <input type="hidden" name='id' value={{ card.id }} />
             {% include "card.html" %}

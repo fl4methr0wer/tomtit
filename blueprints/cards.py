@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, make_response, request, url_for, abort
 from domain.Card import Card
+from domain.CardList import CardList
 import time
 
 CARDS = [
@@ -7,6 +8,7 @@ CARDS = [
     Card("title 2", "content 2"),
     Card("title 3", "content 3")
 ]
+LISTS = {}
 
 def deleteCardById(id):
     global CARDS  # Use the global keyword to modify the global variable
@@ -34,14 +36,16 @@ def get_list_creation_form():
 @blueprint.route("/list", methods=["POST"])
 def create_card_list():
     print(f"CREATE LIST POST {request.form}")
-    local_cards = [Card("local card1", ""),
-                   Card("local card2", "content2")]
     print(f"CREATE LIST POST {request.form.items()}")
+    list_name = request.form.get("list-name")
+    new_list = CardList(list_name)
+    list_id = new_list.get_id()
+    LISTS[list_id] = new_list
     return render_template("new_card_list.html",
-                           cards=local_cards,
+                           card_list = LISTS[list_id],
                            title=request.form.get("list-name"),
                            hx_put_url=url_for("cards.reorder_cards"))
-
+#=====================#
 @blueprint.route("/card-creation-form", methods=["GET"])
 def get_card_creation_form():
     if "HX-Request" not in request.headers:

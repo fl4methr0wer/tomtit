@@ -8,7 +8,7 @@
     <div class="container mt-4"
          style="background-color: pink"
     >
-        {% include 'htmx/cards/form.html' %}
+{#        {% include 'htmx/cards/form.html' %}#}
     </div>
 
     <hr>
@@ -23,12 +23,12 @@
         </div>
         <div class="col">
             <h3>Column 2</h3>
-            <div class="card-columns pt-4">
-                <div id="cardListPlaceholder"
-                     class="container"
-                     hx-get="/cards"
-                     hx-swap="outerHTML"
-                     hx-trigger="load">
+{#            <div class="card-columns pt-4">#}
+{#                <div id="cardListPlaceholder"#}
+{#                     class="container"#}
+{#                     hx-get="/cards"#}
+{#                     hx-swap="outerHTML"#}
+{#                     hx-trigger="load">#}
                     <!-- Cards will be dynamically inserted here -->
                 </div>
             </div>
@@ -36,12 +36,12 @@
         <div class="col">
             <h3>Column 3</h3>
             <div class="card-columns pt-4">
-                <div class="card-columns">
-                <div id="cardListPlaceholder"
-                     class="container"
-                     hx-get="/cards"
-                     hx-swap="outerHTML"
-                     hx-trigger="load">
+{#                <div class="card-columns">#}
+{#                <div id="cardListPlaceholder"#}
+{#                     class="container"#}
+{#                     hx-get="/cards"#}
+{#                     hx-swap="outerHTML"#}
+{#                     hx-trigger="load">#}
                     <!-- Cards will be dynamically inserted here -->
                 </div>
             </div>

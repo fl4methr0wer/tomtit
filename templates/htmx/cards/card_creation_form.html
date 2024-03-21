@@ -1,9 +1,8 @@
-<form hx-post="cards/list">
-    <input type="text" name="title" class="form-control" placeholder="Title">
-    <input type="text" name="title" class="form-control" placeholder="Content">
+<form hx-post="/cards">
+    <input type="text" name="title" class="form-control" placeholder="Title" required>
+    <input type="text" name="content" class="form-control" placeholder="Content">
     <hr>
     <a class="btn btn-warning"
-       hx-post="cards/list"
        hx-trigger="click"
        hx-target="closest form"
        hx-swap="outerHTML"
