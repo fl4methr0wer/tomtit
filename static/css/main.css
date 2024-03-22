@@ -1,3 +1,6 @@
 body {
     font-family: 'Montserrat', serif;
+    overflow-y: hidden;
+    margin: 0;
+    height: 100vh;
 }

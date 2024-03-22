@@ -34,7 +34,7 @@ def create_card_list():
     LISTS[list_id] = new_list
     print(f"CREATED LISTS: {[str(list) for list in LISTS.values()]}")
     print(f"SENDING LIST: {LISTS[list_id]}")
-    return render_template("new_card_list.html",
+    return render_template("new_card_list_column.html",
                            card_list = new_list,
                            hx_put_url=url_for("lists.reorder_card_list"))
 

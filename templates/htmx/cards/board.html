@@ -1,20 +1,25 @@
 <style>
+    #board {
+        overflow-x: auto; /* Enable horizontal scrolling */
+        white-space: nowrap; /* Prevent items from wrapping */
+    }
+    .row {
+        display: inline-block; /* Ensure the row behaves as a single block */
+        white-space: nowrap; /* Prevent items from wrapping within the row */
+    }
     .board-column {
         min-width: 300px;
-        max-width: 300px
+        max-width: 300px;
+        display: inline-block; /* Ensure each column behaves as a single block */
+        vertical-align: top; /* Align columns at the top */
     }
+
 </style>
 
 <div class="container" id="board">
     <div class="row">
         {% for card_list in card_lists %}
-        <div class="col board-column">
-            <div class="card-columns">
-                <div class="card">
-                {% include "htmx/cards/new_card_list.html" %}
-                </div>
-            </div>
-        </div>
+            {% include "htmx/cards/new_card_list_column.html" %}
         {% endfor %}
         <div class="col board-column">
             <div class="card-columns">
