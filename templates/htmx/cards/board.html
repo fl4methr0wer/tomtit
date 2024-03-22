@@ -1,20 +1,25 @@
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card-columns pt-4">
-                {% include "htmx/cards/list_creation_button.html" %}
-            </div>
-        </div>
+<style>
+    .board-column {
+        min-width: 300px;
+        max-width: 300px
+    }
+</style>
 
+<div class="container" id="board">
+    <div class="row">
         {% for card_list in card_lists %}
-        <div class="col">
-            <div class="card-columns pt-4">
+        <div class="col board-column">
+            <div class="card-columns">
                 <div class="card">
                 {% include "htmx/cards/new_card_list.html" %}
                 </div>
             </div>
         </div>
         {% endfor %}
-
+        <div class="col board-column">
+            <div class="card-columns">
+                {% include "htmx/cards/list_creation_button.html" %}
+            </div>
+        </div>
     </div>
 </div>
