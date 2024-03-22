@@ -3,10 +3,9 @@ from domain.Card import Card
 from domain.CardList import CardList
 import time
 
-# LISTS = {
-#     "test" : CardList("testCardList", [Card("testcard1", "testContent1"), Card("testcard2", "testcontent2")])
-# }
+test_list = CardList("testCardList", [Card("testcard1", "testContent1"), Card("testcard2", "testcontent2")])
 LISTS = {}
+LISTS[test_list.id] = test_list
 
 blueprint = Blueprint("lists", __name__,
                       url_prefix="/lists",
@@ -17,7 +16,9 @@ def get_board():
     lists = [list for id, list in LISTS.items()]
     print("GET /board")
     print(f"LISTS VALUES:{[str(list) for list in lists] }")
-    return render_template("board.html", card_lists=lists)
+    return render_template("board.html",
+                           card_lists=lists,
+                           hx_put_url=url_for("lists.create_card_list"))
 @blueprint.route("/list-creation-form", methods=["GET"])
 def get_list_creation_form():
     if "HX-Request" not in request.headers:
@@ -40,12 +41,14 @@ def create_card_list():
 @blueprint.route("/", methods=["PUT"])
 @blueprint.route("/<string:list_id>", methods=["PUT"])
 def reorder_card_list(list_id: str):
-    list = LISTS[list_id]
-    if None == list:
-        abort(404)
-    list.reorder_cards_by_id_list(request.form.getlist("id"))
+    print(f"list_id:{list_id}")
+    print(f"LISTS: {LISTS}")
+    if list_id not in LISTS.keys():
+        abort(404, "List not found")
+    card_list = LISTS[list_id]
+    card_list.reorder_cards_by_id_list(request.form.getlist("id"))
     return render_template("new_card_list.html",
-                           card_list = list,
+                           card_list=card_list,
                            hx_put_url=url_for("lists.reorder_card_list"))
 
 @blueprint.route("/<string:list_id>/cards/", methods=["POST"])
@@ -68,42 +71,3 @@ def delete_card(list_id, card_id):
     list = LISTS[list_id]
     list.delete_card_by_id(card_id)
     return make_response("", 200)
-
-#=====================#
-# @blueprint.route("/card-creation-form", methods=["GET"])
-# def get_card_creation_form():
-#     if "HX-Request" not in request.headers:
-#         abort(304)
-#     return render_template("card_creation_form.html")
-#
-# @blueprint.route("/", methods=["GET"])
-# def get_all_cards():
-#     return render_template("card_list.html",
-#                            hx_put_url=url_for("reorder_cards"),
-#                            cards=CARDS)
-# @blueprint.route('/', methods=['POST'])
-# def create_card():
-#     print(f"URL FOR HX-PUT : {url_for('cards.reorder_cards')}")
-#     title = request.form['title']
-#     content = request.form['content']
-#     newCard = Card(title, content)
-#     CARDS.insert(0, newCard)
-#     return render_template("card_list.html",
-#                            hx_put_url=url_for('reorder_cards'),
-#                            cards=CARDS)
-#
-# @blueprint.route("/<string:id>", methods=["DELETE"])
-# def delete_card(id):
-#     time.sleep(1) # just to show the spinner
-#     #deleteCardById(id)
-#     return make_response("", 200)
-
-# @blueprint.route("/reorder", methods=["PUT"])
-# def reorder_cards():
-#     ordered_ids = request.form.getlist("id")
-#     card_list = LISTS[]
-#     print(f"IDS {ordered_ids}")
-#     reorderCardsByIdList(ordered_ids)
-#     return render_template("card_list.html",
-#                            hx_put_url=url_for('reorder_cards'),
-#                            cards=CARDS)
