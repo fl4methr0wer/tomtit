@@ -45,7 +45,6 @@ def create_card_list():
                            card_list = LISTS[list_id],
                            title=request.form.get("list-name"),
                            hx_put_url=url_for("cards.reorder_cards"))
-#=====================#
 @blueprint.route("/card-creation-form", methods=["GET"])
 def get_card_creation_form():
     if "HX-Request" not in request.headers:
