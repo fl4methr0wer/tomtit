@@ -5,5 +5,10 @@ class Card:
         self.title = title
         self.content = content
 
-    def __str__(self):
-        return f"Card:\n\tid:{self.id};\n\ttitle:{self.title};\n\tcontent:{self.content}"
+    def __str__(self) -> str:
+        str_repr = "Card("
+        str_repr += f"id:{self.id}"
+        str_repr += f", title:{self.title}"
+        str_repr += f", content:{self.content}"
+        str_repr += ")"
+        return str_repr

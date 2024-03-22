@@ -6,9 +6,9 @@
         </div>
         <div class="d-flex align-items-center">
             <button type="button"
-                    class="btn btn-danger me-2"
+                    class="btn btn-secondary me-2"
                     hx-trigger = "click"
-                    hx-delete="/cards/{{card.id}}"
+                    hx-delete="lists/{{ card_list.get_id() }}/cards/{{card.id}}"
                     hx-target="#{{ card.id }}"
                     hx-swap="outerHTML"
                     hx-confirm="Do you want to delete?"

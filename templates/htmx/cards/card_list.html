@@ -1,7 +1,7 @@
 <div id="cardList" class="row container">
     <form class="sortable"
           hx-put="{{ hx_put_url }}"
-          hx-target="closest #cardList"
+          hx-target="closest .card-body"
           hx-trigger="end"
           hx-swap="outerHTML"
           style="background-color: chocolate"
