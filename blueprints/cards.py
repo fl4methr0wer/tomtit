@@ -6,7 +6,8 @@ import time
 CARDS = [
     Card("title 1", "content 1"),
     Card("title 2", "content 2"),
-    Card("title 3", "content 3")
+    Card("title 3", "content 3"),
+    Card("title 4", "content 32")
 ]
 LISTS = {}
 

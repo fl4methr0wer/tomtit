@@ -1,6 +1,7 @@
 body {
     font-family: 'Montserrat', serif;
-    overflow-y: hidden;
-    margin: 0;
-    height: 100vh;
+}
+.card button:hover{
+    background-color:red;
+    transition 0.2s ease;
 }

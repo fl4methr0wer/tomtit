@@ -1,0 +1,40 @@
+Index: static/css/main.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>body {\r\n    font-family: 'Montserrat', serif;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/static/css/main.css b/static/css/main.css
+--- a/static/css/main.css	(revision 323f0a814e281c3b2b547f5ae798646f7d594a57)
++++ b/static/css/main.css	(date 1710848516693)
+@@ -1,3 +1,8 @@
+ body {
+     font-family: 'Montserrat', serif;
++}
++
++
++.col {
++    flex: 1 0 0%;
+ }
+\ No newline at end of file
+Index: blueprints/cards.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from flask import Blueprint, render_template, make_response, request\r\nfrom domain.Card import Card\r\nimport time\r\n\r\nblueprint = Blueprint(\"cards\", __name__, url_prefix=\"/cards\")\r\nTEMPLATE_FOLDER_NAME = \"htmx/cards/\"\r\n\r\nCARDS = [\r\n    Card(\"title 1\", \"content 1\"),\r\n    Card(\"title 2\", \"content 2\"),\r\n    Card(\"title 3\", \"content 3\")\r\n]\r\ndef deleteCardById(id):\r\n    global CARDS  # Use the global keyword to modify the global variable\r\n    # Filter out cards with the specified id using a list comprehension\r\n    CARDS = [card for card in CARDS if card.id != id]\r\n\r\ndef reorderCardsByIdList(id_list):\r\n    global CARDS\r\n    card_to_id = {card.id: card for card in CARDS}\r\n    ordered_cards = [card_to_id[id] for id in id_list if id in card_to_id]\r\n    for card in CARDS:\r\n        if card.id not in id_list:\r\n            ordered_cards.append(card)\r\n    CARDS = ordered_cards\r\n\r\n@blueprint.route(\"/\", methods=[\"GET\"])\r\ndef get_all_cards():\r\n    return render_template(TEMPLATE_FOLDER_NAME + \"card_list.html\",\r\n                           folder_name=TEMPLATE_FOLDER_NAME,\r\n                           cards = CARDS)\r\n@blueprint.route('/', methods=['POST'])\r\ndef create_card():\r\n    title = request.form['title']\r\n    content = request.form['content']\r\n    newCard = Card(title, content)\r\n    CARDS.insert(0, newCard)\r\n    return render_template(TEMPLATE_FOLDER_NAME + \"card_list.html\",\r\n                           folder_name=TEMPLATE_FOLDER_NAME,\r\n                           cards=CARDS)\r\n\r\n@blueprint.route(\"/<id>\", methods=[\"DELETE\"])\r\ndef delete_card(id):\r\n    time.sleep(1) # just to show the spinner\r\n    deleteCardById(id)\r\n    return make_response(\"\", 200)\r\n\r\n@blueprint.route(\"/reorder\", methods=[\"PUT\"])\r\ndef reorder_cards():\r\n    ids = request.form.getlist(\"id\")\r\n    print(f\"IDS {ids}\")\r\n    reorderCardsByIdList(ids)\r\n    return render_template(TEMPLATE_FOLDER_NAME + \"card_list.html\",\r\n                           folder_name=TEMPLATE_FOLDER_NAME,\r\n                           cards=CARDS)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/blueprints/cards.py b/blueprints/cards.py
+--- a/blueprints/cards.py	(revision 323f0a814e281c3b2b547f5ae798646f7d594a57)
++++ b/blueprints/cards.py	(date 1710849178970)
+@@ -8,7 +8,8 @@
+ CARDS = [
+     Card("title 1", "content 1"),
+     Card("title 2", "content 2"),
+-    Card("title 3", "content 3")
++    Card("title 3", "content 3"),
++    Card("title 4", "content 32")
+ ]
+ def deleteCardById(id):
+     global CARDS  # Use the global keyword to modify the global variable
